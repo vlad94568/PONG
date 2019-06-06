@@ -58,26 +58,23 @@
 
     function create ()
     {
+        this.background
         this.ball = this.physics.add.image(ballx_start,bally_start,'ball').setCollideWorldBounds(true).setBounce(1);
         this.p1 = this.physics.add.image(paddle1_x,paddle1_y,'p1').setCollideWorldBounds(true).setBounce(0);
         this.p2 = this.physics.add.image(paddle2_x,paddle2_y,'p2').setCollideWorldBounds(true).setBounce(0);
+        leftkey = this.input.keyboard.addKey(Phaser.Input.Keyboards.Keycodes.LEFT);
+        rightkey = this.input.keyboard.addKey(Phaser.Input.Keyboards.Keycodes.RIGHT);
+        a_key = this.input.keyboard.addKey(Phaser.Input.Keyboards.Keycodes.A);
+        d_key = this.input.keyboard.addKey(Phaser.Input.Keyboards.Keycodes.D);
     }
 
     function update ()
     {
-        document.onkeydown = function (e)
-        {
-            switch (e.keyCode)
-            {
-                case 37: // Left.
-                    paddle1_x -= 1;
-                    break;
-
-                case 39: // Right.
-                    paddle1_x += 1;
-                    break;
-            }
-
+        if (leftkey.isDown){
+            this.p1.x -= 100;
+        }
+        if (rightkey.isDown){
+            this.p1.x += 100;
         }
     }
 
