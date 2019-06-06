@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>PONG</title>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+    var config = {
+        type: Phaser.AUTO,
+        width: 600,
+        height: 800,
+        physics: {
+            default: 'arcade',
+            arcade: {
+                gravity: { y: 0 },
+                debug: false
+            }
+        },
+        scene: {
+            preload: preload,
+            create: create,
+            update: update
+        }
+    };
+    var ball_speed = 20;
+    var ball_angle = 0;
+    var ball_hit_paddle = false;
+    var ballx_start = 300;
+    var bally_start = 400;
+// Bottom ball
+    var paddle1_x = 300;
+    var paddle1_y = 800;
+// Top ball
+    var paddle2_x = 300;
+    var paddle2_y = 0;
+
+    var ball;
+    var p1;
+    var p2;
+
+    var game = new Phaser.Game(config);
+
+    function preload ()
+    {
+        this.load.image('ball', 'ball.png');
+        this.load.image('p1', 'glasspaddle2.png');
+        this.load.image('p2', 'paddle.png');
+    }
+
+    function create ()
+    {
+        this.ball = this.physics.add.image(ballx_start,bally_start,'ball').setCollideWorldBounds(true).setBounce(1);
+        this.p1 = this.physics.add.image(paddle1_x,paddle1_y,'p1').setCollideWorldBounds(true).setBounce(0);
+        this.p2 = this.physics.add.image(paddle2_x,paddle2_y,'p2').setCollideWorldBounds(true).setBounce(0);
+    }
+
+    function update ()
+    {
+        document.onkeydown = function (e)
+        {
+            switch (e.keyCode)
+            {
+                case 37: // Left.
+                    paddle1_x -= 1;
+                    break;
+
+                case 39: // Right.
+                    paddle1_x += 1;
+                    break;
+            }
+
+        }
+    }
+
+</script>
+
+</body>
+</html></html>
