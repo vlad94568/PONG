@@ -36,21 +36,25 @@
     var ball_hit_paddle = false;
     var ballx_start = 300;
     var bally_start = 400;
-// Bottom ball
+// Bottom paddle
     var paddle1_x = 300;
     var paddle1_y = 800;
-// Top ball
+// Top paddle
     var paddle2_x = 300;
     var paddle2_y = 0;
 
     var ball;
     var p1;
     var p2;
+    var cursors;
+    var a;
+    var d;
 
     var game = new Phaser.Game(config);
 
     function preload ()
     {
+        this.load.image('background','chuckchee170600044.jpg');
         this.load.image('ball', 'ball.png');
         this.load.image('p1', 'glasspaddle2.png');
         this.load.image('p2', 'paddle.png');
@@ -58,23 +62,36 @@
 
     function create ()
     {
-        this.background
+        this.background = this.physics.add.image(300,400,'background').setCollideWorldBounds(true).setBounce(0);
         this.ball = this.physics.add.image(ballx_start,bally_start,'ball').setCollideWorldBounds(true).setBounce(1);
         this.p1 = this.physics.add.image(paddle1_x,paddle1_y,'p1').setCollideWorldBounds(true).setBounce(0);
         this.p2 = this.physics.add.image(paddle2_x,paddle2_y,'p2').setCollideWorldBounds(true).setBounce(0);
-        leftkey = this.input.keyboard.addKey(Phaser.Input.Keyboards.Keycodes.LEFT);
-        rightkey = this.input.keyboard.addKey(Phaser.Input.Keyboards.Keycodes.RIGHT);
-        a_key = this.input.keyboard.addKey(Phaser.Input.Keyboards.Keycodes.A);
-        d_key = this.input.keyboard.addKey(Phaser.Input.Keyboards.Keycodes.D);
+        this.background.setScale(1.33,2.66);
+        cursors = this.input.keyboard.createCursorKeys();
+        this.physics.world.setFPS(60);
+        a = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        d = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     }
 
     function update ()
     {
-        if (leftkey.isDown){
-            this.p1.x -= 100;
+        this.p1.setVelocityX(0);
+        if (cursors.left.isDown)
+        {
+            this.p1.setVelocityX(-110)
         }
-        if (rightkey.isDown){
-            this.p1.x += 100;
+        else if (cursors.right.isDown)
+        {
+            this.p1.setVelocityX(110)
+        }
+        this.p2.setVelocityX(0);
+        if (a.isDown)
+        {
+            this.p2.setVelocityX(-110)
+        }
+        else if (d.isDown)
+        {
+            this.p2.setVelocityX(110)
         }
     }
 
