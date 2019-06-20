@@ -38,10 +38,10 @@
     var bally_start = 400;
 // Bottom paddle
     var paddle1_x = 300;
-    var paddle1_y = 800;
+    var paddle1_y = 755;
 // Top paddle
     var paddle2_x = 300;
-    var paddle2_y = 0;
+    var paddle2_y = 40;
 
     var ball;
     var p1;
@@ -68,9 +68,16 @@
         this.p2 = this.physics.add.image(paddle2_x,paddle2_y,'p2').setCollideWorldBounds(true).setBounce(0);
         this.background.setScale(1.33,2.66);
         cursors = this.input.keyboard.createCursorKeys();
-        this.physics.world.setFPS(60);
+        this.physics.world.setBoundsCollision(true, true, false, false);
+        this.physics.world.setFPS(45);
         a = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         d = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        this.ball.setVelocityY(80);
+        this.ball.setVelocityX(80);
+        this.physics.add.collider(this.p1, this.ball);
+        this.physics.add.collider(this.p2, this.ball);
+        this.p1.setImmovable(true);
+        this.p2.setImmovable(true);
     }
 
     function update ()
@@ -98,4 +105,3 @@
 </script>
 
 </body>
-</html></html>
